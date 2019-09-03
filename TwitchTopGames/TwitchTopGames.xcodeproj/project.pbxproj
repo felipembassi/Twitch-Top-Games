@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65F73036231E737100D9BAD3 /* IBDesignables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F73035231E737100D9BAD3 /* IBDesignables.swift */; };
+		65F73038231E738000D9BAD3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F73037231E738000D9BAD3 /* Constants.swift */; };
+		65F7303A231E749000D9BAD3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F73039231E749000D9BAD3 /* Extensions.swift */; };
+		65F7303C231E77F200D9BAD3 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F7303B231E77F200D9BAD3 /* Mask.swift */; };
 		E469EB06231D5B8900EF328A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E469EB05231D5B8900EF328A /* AppDelegate.swift */; };
 		E469EB08231D5B8900EF328A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E469EB07231D5B8900EF328A /* ViewController.swift */; };
 		E469EB0B231D5B8900EF328A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E469EB09231D5B8900EF328A /* Main.storyboard */; };
@@ -27,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65F73035231E737100D9BAD3 /* IBDesignables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBDesignables.swift; sourceTree = "<group>"; };
+		65F73037231E738000D9BAD3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		65F73039231E749000D9BAD3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		65F7303B231E77F200D9BAD3 /* Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
 		E469EB02231D5B8900EF328A /* TwitchTopGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitchTopGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E469EB05231D5B8900EF328A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E469EB07231D5B8900EF328A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +66,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65F73033231E733800D9BAD3 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				E469EB07231D5B8900EF328A /* ViewController.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		65F73034231E734000D9BAD3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				65F73035231E737100D9BAD3 /* IBDesignables.swift */,
+				65F73037231E738000D9BAD3 /* Constants.swift */,
+				65F73039231E749000D9BAD3 /* Extensions.swift */,
+				65F7303B231E77F200D9BAD3 /* Mask.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		E469EAF9231D5B8900EF328A = {
 			isa = PBXGroup;
 			children = (
@@ -80,10 +107,10 @@
 			isa = PBXGroup;
 			children = (
 				E469EB05231D5B8900EF328A /* AppDelegate.swift */,
-				E469EB07231D5B8900EF328A /* ViewController.swift */,
-				E469EB09231D5B8900EF328A /* Main.storyboard */,
+				65F73033231E733800D9BAD3 /* Scenes */,
+				E469EB28231DB9CF00EF328A /* UI */,
+				65F73034231E734000D9BAD3 /* Utils */,
 				E469EB0F231D5B8C00EF328A /* Assets.xcassets */,
-				E469EB11231D5B8C00EF328A /* LaunchScreen.storyboard */,
 				E469EB14231D5B8C00EF328A /* Info.plist */,
 				E469EB0C231D5B8900EF328A /* TwitchTopGames.xcdatamodeld */,
 			);
@@ -97,6 +124,15 @@
 				E469EB1F231D5B8C00EF328A /* Info.plist */,
 			);
 			path = TwitchTopGamesTests;
+			sourceTree = "<group>";
+		};
+		E469EB28231DB9CF00EF328A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E469EB11231D5B8C00EF328A /* LaunchScreen.storyboard */,
+				E469EB09231D5B8900EF328A /* Main.storyboard */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +236,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65F73038231E738000D9BAD3 /* Constants.swift in Sources */,
+				65F7303A231E749000D9BAD3 /* Extensions.swift in Sources */,
+				65F7303C231E77F200D9BAD3 /* Mask.swift in Sources */,
 				E469EB08231D5B8900EF328A /* ViewController.swift in Sources */,
 				E469EB06231D5B8900EF328A /* AppDelegate.swift in Sources */,
 				E469EB0E231D5B8900EF328A /* TwitchTopGames.xcdatamodeld in Sources */,
+				65F73036231E737100D9BAD3 /* IBDesignables.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
