@@ -45,7 +45,7 @@
         <!--Top Games-->
         <scene sceneID="PI1-Jc-KKS">
             <objects>
-                <viewController id="1tM-W4-L5V" sceneMemberID="viewController">
+                <viewController id="1tM-W4-L5V" customClass="TopGamesViewController" customModule="TwitchTopGames" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hHv-YE-F9p">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -228,6 +228,9 @@
                         <viewLayoutGuide key="safeArea" id="Pae-4T-Qnc"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Top Games" image="gamepad" id="FJ4-ac-z9S"/>
+                    <connections>
+                        <outlet property="tableView" destination="vBg-yf-sDo" id="LrQ-6x-fpA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIC-pG-gyr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
