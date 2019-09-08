@@ -13,9 +13,40 @@
 import UIKit
 
 protocol TopGamesPresentationLogic {
-    
+    func presentTopGames(response: TopGames.Get.Response?)
 }
 
 class TopGamesPresenter: TopGamesPresentationLogic {
     weak var viewController: TopGamesDisplayLogic?
+    
+    func presentTopGames(response: TopGames.Get.Response?) {
+        
+        guard let tops = response?.top else {
+            self.presentError()
+            return
+        }
+        var displayedGames = [TopGames.Get.ViewModel.DisplayedGame]()
+        for top in tops {
+            if let gameName = top.game?.name,
+                let popularityValue = top.game?.popularity,
+                let localizedName = top.game?.localizedName {
+                if let url = URL(string: top.game?.box?.template?.replacingOccurrences(of: "{width}", with: "100").replacingOccurrences(of: "{height}", with: "100") ?? "https://static-cdn.jtvnw.net/ttv-static/404_boxart.jpg") {
+                    let displayedGame = TopGames.Get.ViewModel.DisplayedGame(gameName: gameName, popularity: popularityValue, localizedName: localizedName, gameImageUrl: url)
+                    displayedGames.append(displayedGame)
+                }else {
+                    self.presentError()
+                    return
+                }
+            }else {
+                self.presentError()
+                return
+            }
+        }
+        let viewModel = TopGames.Get.ViewModel(displayedGames: displayedGames)
+        viewController?.displayTopGames(viewModel: viewModel)
+    }
+    
+    private func presentError() {
+        viewController?.displayTopGames(viewModel: nil)
+    }
 }

@@ -13,6 +13,7 @@
 import UIKit
 
 protocol TopGamesBusinessLogic {
+    func getTopGames(request: TopGames.Get.Request)
 }
 
 protocol TopGamesDataStore {
@@ -21,5 +22,17 @@ protocol TopGamesDataStore {
 
 class TopGamesInteractor: TopGamesBusinessLogic, TopGamesDataStore {
     var presenter: TopGamesPresentationLogic?
-    var worker: TopGamesWorker?
+    var worker = TopGamesWorker()
+    
+    func getTopGames(request: TopGames.Get.Request) {
+        self.worker.fetchTopGames(request: request) { (result) in
+            switch result {
+            case .success(let topGames):
+                self.presenter?.presentTopGames(response: topGames)
+            case.failure:
+                self.presenter?.presentTopGames(response: nil)
+            }
+        }
+        
+    }
 }

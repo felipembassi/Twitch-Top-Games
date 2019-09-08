@@ -12,6 +12,32 @@
 
 import UIKit
 
-class TopGamesWorker {
+class TopGamesWorker: APIClient {
+    let session: URLSession
     
+    init(configuration: URLSessionConfiguration) {
+        self.session = URLSession(configuration: configuration)
+    }
+    
+    convenience init() {
+        self.init(configuration: .default)
+    }
+    
+    func fetchTopGames(request: TopGames.Get.Request, completionHandler: @escaping (Result<TopGames.Get.Response, APIError>) -> Void){
+        let endpoint = request.service
+        
+        fetch(with: endpoint.request, httpMethod: .GET, decode: { json -> TopGames.Get.Response? in
+            guard let feedResult = json as? TopGames.Get.Response else { return  nil }
+            return feedResult
+        }, completion: completionHandler)
+    }
+    
+    func fetchTopClips(request: TopGames.Get.Request, completionHandler: @escaping (Result<TopGames.Get.Response, APIError>) -> Void){
+        let endpoint = request.service
+        
+        fetch(with: endpoint.request, httpMethod: .GET, decode: { json -> TopGames.Get.Response? in
+            guard let feedResult = json as? TopGames.Get.Response else { return  nil }
+            return feedResult
+        }, completion: completionHandler)
+    }
 }

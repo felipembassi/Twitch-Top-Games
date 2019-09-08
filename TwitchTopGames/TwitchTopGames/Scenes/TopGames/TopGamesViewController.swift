@@ -12,7 +12,44 @@
 
 import UIKit
 
+// MARK: TopGameCell
+
+class TopGameCell: BaseTableViewCell<TopGames.Get.ViewModel.DisplayedGame> {
+    override var item: TopGames.Get.ViewModel.DisplayedGame? {
+        didSet {
+            self.imageViewGame.loadImageUsingCacheWithURL(item?.gameImageUrl, placeHolder: UIImage(named: "topGameImageMock")) { (completion) in
+                
+            }
+            self.labelGameName.text = item?.localizedName
+            if let popularityValue = item?.popularity {
+                self.labelGamePopularityValue.text = "\(popularityValue.formattedWithSeparator)"
+            }
+            
+            //TODO: verify inside core data before showing button type and image
+            self.buttonFavorite.isEnabled = false
+            
+            //TODO: get top 10 clips for this gamecell
+        }
+    }
+    
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var imageViewGame: UIImageView!
+    @IBOutlet weak var labelGameName: UILabel!
+    @IBOutlet weak var labelGamePopularity: UILabel!
+    @IBOutlet weak var labelGamePopularityValue: UILabel!
+    @IBOutlet weak var buttonFavorite: UIButton!
+    
+    @IBOutlet weak var collectionTopClips: UICollectionView!
+    
+    // MARK: IBActions
+    @IBAction func buttonFavoriteTapped(_ sender: UIButton) {
+        //TODO: verify inside core data before adding / remove item
+    }
+}
+
 protocol TopGamesDisplayLogic: class {
+    func displayTopGames(viewModel: TopGames.Get.ViewModel?)
 }
 
 class TopGamesViewController: UIViewController, TopGamesDisplayLogic {
@@ -56,24 +93,70 @@ class TopGamesViewController: UIViewController, TopGamesDisplayLogic {
             }
         }
     }
-    
+  
     // MARK: IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: IBActions
     
+    @objc func refresh(_ sender: Any) {
+        self.getTopGames()
+    }
+    
     // MARK: Proprieties
+    private var genericDataSource: GenericTableViewDataSource<TopGameCell, TopGames.Get.ViewModel.DisplayedGame>?
+    private let gamesLimit: Int = 10
+    private var offset: Int = 0
+    fileprivate let topGameCellIdentifier = K.ViewControllers.TopGames.Cells.topGameCellIdentifier
+    fileprivate let topClipCollectionCellIdentifier = K.ViewControllers.TopGames.Cells.topClipCellIdentifier
+    var refreshControl: UIRefreshControl!
     
     // MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.visibleViewController?.title = K.ViewControllers.TopGames.title
+        
+        self.configPullToRefresh()
         self.getTopGames()
     }
     
     // MARK: Functions
     
+    func configPullToRefresh() {
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
     func getTopGames() {
+        let request = TopGames.Get.Request(service: .getTopGames(limit: self.gamesLimit, offset: self.offset))
+        self.interactor?.getTopGames(request: request)
+    }
+    
+    private func setupDataSource(with models: [TopGames.Get.ViewModel.DisplayedGame]) {
+        DispatchQueue.main.async {
+            self.genericDataSource = GenericTableViewDataSource(models: models, identifier: self.topGameCellIdentifier) { cell, model in
+                cell.item = model
+                return cell
+            }
+            self.tableView?.dataSource = self.genericDataSource
+            self.tableView?.reloadData()
+        }
         
+    }
+    
+    // MARK: TopGamesDisplayLogic
+    
+    func displayTopGames(viewModel: TopGames.Get.ViewModel?) {
+        refreshControl.endRefreshing()
+        if let viewModel = viewModel {
+            self.tableView.removePlaceholder(seperatorBackToDefault: true)
+            self.setupDataSource(with: viewModel.displayedGames)
+        }else {
+            self.tableView.showPlaceholder()
+            self.showToast()
+        }
     }
 }

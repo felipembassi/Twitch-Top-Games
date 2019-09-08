@@ -1,9 +1,9 @@
 //
 //  Searchable.swift
-//  GenericBaseContollers
+//  TwitchTopGames
 //
-//  Created by James Rochabrun on 7/8/18.
-//  Copyright © 2018 James Rochabrun. All rights reserved.
+//  Created by Felipe Bassi on 05/09/19.
+//  Copyright © 2019 fbassi. All rights reserved.
 //
 
 import Foundation

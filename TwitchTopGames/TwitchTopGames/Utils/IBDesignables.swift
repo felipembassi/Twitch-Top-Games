@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+@IBDesignable
+
 extension UIView {
     @IBInspectable var shadowRadius: CGFloat {
         get {
@@ -37,12 +39,20 @@ extension UIView {
         }
     }
     
-    @IBInspectable var shadowColor: UIColor {
+    @IBInspectable
+    var shadowColor: UIColor? {
         get {
-            return UIColor(cgColor: layer.shadowColor!)
+            if let color = layer.shadowColor {
+                return UIColor(cgColor: color)
+            }
+            return nil
         }
         set {
-            layer.shadowColor = newValue.cgColor
+            if let color = newValue {
+                layer.shadowColor = color.cgColor
+            } else {
+                layer.shadowColor = nil
+            }
         }
     }
     
@@ -160,6 +170,9 @@ extension UIView {
         })
     }
     
+    /// A transform animation where view to be animated grow from it's own center
+    ///
+    /// - Parameter duration: duration of animation default 0.7
     func growFromCenter(withDuration duration: TimeInterval = 0.7) {
         self.transform = CGAffineTransform(scaleX: 0, y: 0)
         UIView.animate(withDuration: duration, animations: {

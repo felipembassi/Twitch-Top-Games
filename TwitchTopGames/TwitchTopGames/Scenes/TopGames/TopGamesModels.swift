@@ -12,12 +12,119 @@
 
 import UIKit
 
+enum TopClips {
+    struct Get {
+        enum Api {
+            case getTopClips (limit: Int, gameName: String, trending: Bool)
+        }
+        
+        struct Request {
+            let service: TopClips.Get.Api
+        }
+        
+        // MARK: - Response
+        struct Response: Codable {
+            let clips: [Clip]?
+            let cursor: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case clips
+                case cursor = "_cursor"
+            }
+        }
+        
+        // MARK: - Clip
+        struct Clip: Codable {
+            let slug, trackingID: String?
+            let url, embedURL: String?
+            let embedHTML: String?
+            let broadcaster, curator: Broadcaster?
+            let vod: VOD?
+            let broadcastID: String?
+            let game: Game?
+            let language, title: String?
+            let views: Int?
+            let duration: Double?
+            let createdAt: Date?
+            let thumbnails: Thumbnails?
+            
+            enum CodingKeys: String, CodingKey {
+                case slug
+                case trackingID = "tracking_id"
+                case url
+                case embedURL = "embed_url"
+                case embedHTML = "embed_html"
+                case broadcaster, curator, vod
+                case broadcastID = "broadcast_id"
+                case game, language, title, views, duration
+                case createdAt = "created_at"
+                case thumbnails
+            }
+        }
+        
+        // MARK: - Broadcaster
+        struct Broadcaster: Codable {
+            let id, name, displayName: String?
+            let channelURL: String?
+            let logo: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id, name
+                case displayName = "display_name"
+                case channelURL = "channel_url"
+                case logo
+            }
+        }
+        
+        enum Game: String, Codable {
+            case leagueOfLegends = "League of Legends"
+        }
+        
+        // MARK: - Thumbnails
+        struct Thumbnails: Codable {
+            let medium, small, tiny: String?
+        }
+        
+        // MARK: - VOD
+        struct VOD: Codable {
+            let id: String?
+            let url: String?
+            let offset: Int?
+            let previewImageURL: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case id, url, offset
+                case previewImageURL = "preview_image_url"
+            }
+        }
+        
+        // MARK: - ViewModel
+        struct ViewModel {
+            struct DisplayedTopClip: Searchable {
+                let clipUrl: URL
+                let clipTitle: String
+                
+                var query: String {
+                    return clipTitle
+                }
+            }
+            
+            var displayedGames: [DisplayedTopClip]
+        }
+
+    }
+}
+
 enum TopGames {
     
     struct Get {
         
+        enum Api {
+            case getTopGames(limit: Int, offset: Int)
+        }
+        
         struct Request {
-            
+            let service: TopGames.Get.Api
         }
         
         // MARK: - Response
@@ -64,9 +171,40 @@ enum TopGames {
         enum Locale: String, Codable {
             case enUs = "en-us"
         }
-    }
-    
-    struct ViewModel {
         
+        struct ViewModel {
+            struct DisplayedGame: Searchable {
+                let gameName: String
+                let popularity: Int
+                let localizedName: String
+                let gameImageUrl: URL
+                
+                var query: String {
+                    return gameName
+                }
+            }
+            
+            var displayedGames: [DisplayedGame]
+        }
+    }
+}
+
+extension TopGames.Get.Api: Endpoint {
+    
+    var path: String {
+        switch self {
+        case .getTopGames (let limit, let offset):
+            return "/\(K.API.Base.version)/games/top?limit=\(limit)&offset=\(offset)"
+        }
+    }
+}
+
+extension TopClips.Get.Api: Endpoint {
+    
+    var path: String {
+        switch self {
+        case .getTopClips (let limit, let gameName, let trending):
+            return "/\(K.API.Base.version)/clips/top?limit=\(limit)&game=\(gameName)&trending=\(trending)"
+        }
     }
 }
