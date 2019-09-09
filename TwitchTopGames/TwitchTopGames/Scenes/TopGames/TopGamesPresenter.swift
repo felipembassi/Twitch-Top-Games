@@ -42,7 +42,11 @@ class TopGamesPresenter: TopGamesPresentationLogic {
                 return
             }
         }
-        let viewModel = TopGames.Get.ViewModel(displayedGames: displayedGames)
+        guard let total = response?.total else {
+            self.presentError()
+            return
+        }
+        let viewModel = TopGames.Get.ViewModel(totalPages: total, displayedGames: displayedGames)
         viewController?.displayTopGames(viewModel: viewModel)
     }
     

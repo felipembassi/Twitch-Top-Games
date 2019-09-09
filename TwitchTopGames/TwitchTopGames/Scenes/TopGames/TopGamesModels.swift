@@ -41,7 +41,6 @@ enum TopClips {
             let broadcaster, curator: Broadcaster?
             let vod: VOD?
             let broadcastID: String?
-            let game: Game?
             let language, title: String?
             let views: Int?
             let duration: Double?
@@ -56,7 +55,7 @@ enum TopClips {
                 case embedHTML = "embed_html"
                 case broadcaster, curator, vod
                 case broadcastID = "broadcast_id"
-                case game, language, title, views, duration
+                case language, title, views, duration
                 case createdAt = "created_at"
                 case thumbnails
             }
@@ -74,10 +73,6 @@ enum TopClips {
                 case channelURL = "channel_url"
                 case logo
             }
-        }
-        
-        enum Game: String, Codable {
-            case leagueOfLegends = "League of Legends"
         }
         
         // MARK: - Thumbnails
@@ -150,7 +145,6 @@ enum TopGames {
             let popularity, id, giantbombId: Int?
             let box, logo: Box?
             let localizedName: String?
-            let locale: Locale?
             
             enum CodingKeys: String, CodingKey {
                 case name, popularity
@@ -158,7 +152,6 @@ enum TopGames {
                 case giantbombId = "giantbomb_id"
                 case box, logo
                 case localizedName = "localized_name"
-                case locale
             }
         }
         
@@ -166,10 +159,6 @@ enum TopGames {
         struct Box: Codable {
             let large, medium, small: String?
             let template: String?
-        }
-        
-        enum Locale: String, Codable {
-            case enUs = "en-us"
         }
         
         struct ViewModel {
@@ -183,7 +172,7 @@ enum TopGames {
                     return gameName
                 }
             }
-            
+            let totalPages: Int
             var displayedGames: [DisplayedGame]
         }
     }

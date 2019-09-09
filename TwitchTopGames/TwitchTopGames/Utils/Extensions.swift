@@ -269,6 +269,7 @@ extension UIViewController {
 
 extension UITableView {
     func showPlaceholder(customTitle: String? = nil, customDescription: String? = nil) {
+        self.backgroundView = nil
         let placeholderView = TableViewPlaceholder()
         placeholderView.placeholderTitle.text = K.Alerts.Message.emptyTableTitle
         placeholderView.placeHolderDescription.text = K.Alerts.Message.emptyTableMessage
@@ -303,3 +304,11 @@ extension Int {
     var stringValue: String { return String (self) }
 }
 
+extension UIRefreshControl {
+    typealias handler = () -> ()
+    
+    func endRefresh(completion: @escaping handler) {
+        self.endRefreshing()
+        completion()
+    }
+}

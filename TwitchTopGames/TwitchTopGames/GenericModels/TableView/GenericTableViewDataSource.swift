@@ -9,24 +9,39 @@
 import Foundation
 import UIKit
 
-final class GenericTableViewDataSource<V, T: Searchable>: NSObject, UITableViewDataSource where V: BaseTableViewCell<T> {
+protocol GenericTableViewDataSourcePrefetchingDelegate {
+    func fetchNewData()
+}
+
+final class GenericTableViewDataSource<V, T: Searchable>: NSObject, UITableViewDataSourcePrefetching, UITableViewDataSource where V: BaseTableViewCell<T> {
     
-    private var models: [T]
+    var genericPrefetchingDelegate: GenericTableViewDataSourcePrefetchingDelegate?
+    private var models: [T] = []
     private var identifier: String?
     private let configureCell: CellConfiguration
-    typealias CellConfiguration = (V, T) -> V
+    private let totalCount: Int?
+    typealias CellConfiguration = (V, T?) -> V
     
     private var searchResults: [T] = []
     private var isSearchActive: Bool = false
     
-    init(models: [T], identifier: String, configureCell: @escaping CellConfiguration) {
+    init(models: [T], identifier: String, totalForInifityScroll: Int? = nil,configureCell: @escaping CellConfiguration) {
         self.models = models
         self.identifier = identifier
         self.configureCell = configureCell
+        self.totalCount = totalForInifityScroll
+    }
+    
+    func updateModels(_ models: [T]) {
+        self.models.append(contentsOf: models)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSearchActive ? searchResults.count : models.count
+        if let total = totalCount {
+            return isSearchActive ? searchResults.count : total
+        }else {
+            return isSearchActive ? searchResults.count : models.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,12 +53,39 @@ final class GenericTableViewDataSource<V, T: Searchable>: NSObject, UITableViewD
             fatalError("Could not deque cell with identifier")
         }
         
-        let model = getModelAt(indexPath)
-        return configureCell(cell, model)
+        if isLoadingCell(for: indexPath) {
+            return configureCell(cell, nil)
+        } else {
+            let model = getModelAt(indexPath)
+            return configureCell(cell, model)
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            genericPrefetchingDelegate?.fetchNewData()
+        }
+    }
+    
+    private func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= models.count
     }
     
     private func getModelAt(_ indexPath: IndexPath) -> T {
         return isSearchActive ? searchResults[indexPath.item] :  models[indexPath.item]
+    }
+    
+    private func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath] ,in tableView: UITableView) -> [IndexPath] {
+        let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
+    
+    private func calculateIndexPathsToReload(from newModels: [T]) -> [IndexPath] {
+        let startIndex = models.count - newModels.count
+        let endIndex = startIndex + newModels.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
     
     /// external function for searching

@@ -131,18 +131,33 @@ extension APIClient {
                         let genericModel = try JSONDecoder().decode(decodingType, from: data)
                         completion(genericModel, nil)
                     } catch {
+                        #if DEBUG
+                        print("\(APIError.jsonConversionFailure)" + "\n httpResponse: " + (String(data: data, encoding: String.Encoding.utf8) ?? "Json null"))
+                        #endif
                         completion(nil, .jsonConversionFailure)
                     }
                     
                 } else {
+                    #if DEBUG
+                    print("httpResponse: \(httpResponse)")
+                    #endif
                     completion(nil, .invalidData)
                 }
             } else {
                 if httpResponse.statusCode >= 500 {
+                    #if DEBUG
+                    print("Error 500 API")
+                    #endif
                 }
                 if let data = data {
+                    #if DEBUG
+                    print("\(APIError.serverError(data: data))" + "\n httpResponse: " + (String(data: data, encoding: String.Encoding.utf8) ?? "Json null"))
+                    #endif
                     completion(nil, .serverError(data: data))
                 } else {
+                    #if DEBUG
+                    print("\(APIError.responseUnsuccessful)")
+                    #endif
                     completion(nil, .responseUnsuccessful)
                 }
             }

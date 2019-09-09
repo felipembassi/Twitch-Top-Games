@@ -36,25 +36,27 @@ extension ImageCachable where Self: UIImageView {
         }
         self.image = placeHolder
         
-        URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
-            guard let httpResponse = response as? HTTPURLResponse else {
-                return
-            }
-            if httpResponse.statusCode == 200 {
-                
-                if let data = data {
-                    if let downloadedImage = UIImage(data: data) {
-                        imageCache.setObject(downloadedImage, forKey: NSString(string: URL!.absoluteString))
-                        DispatchQueue.main.async {
-                            self.image = downloadedImage
-                            completion(true)
+        DispatchQueue.global(qos: .background).async {
+            URLSession.shared.dataTask(with: URL!, completionHandler: { (data, response, error) in
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    return
+                }
+                if httpResponse.statusCode == 200 {
+                    
+                    if let data = data {
+                        if let downloadedImage = UIImage(data: data) {
+                            imageCache.setObject(downloadedImage, forKey: NSString(string: URL!.absoluteString))
+                            DispatchQueue.main.async {
+                                self.image = downloadedImage
+                                completion(true)
+                            }
                         }
                     }
+                } else {
+                    self.image = placeHolder
                 }
-            } else {
-                self.image = placeHolder
-            }
-        }).resume()
+            }).resume()
+        }
     }
 }
 

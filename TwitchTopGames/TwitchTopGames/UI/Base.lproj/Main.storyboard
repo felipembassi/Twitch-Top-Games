@@ -61,6 +61,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="339.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gU8-zY-I7h">
+                                                    <rect key="frame" x="197" y="41" width="20" height="20"/>
+                                                    <color key="color" red="0.4549019608" green="0.0" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </activityIndicatorView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="QW7-VI-xOw">
                                                     <rect key="frame" x="20" y="20" width="374" height="319.5"/>
                                                     <subviews>
@@ -279,16 +283,20 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="QW7-VI-xOw" secondAttribute="trailing" constant="20" id="7xU-Nv-Lye"/>
                                                 <constraint firstItem="QW7-VI-xOw" firstAttribute="leading" secondItem="m5Q-Tw-Bdv" secondAttribute="leading" constant="20" id="9ol-KB-k8X"/>
+                                                <constraint firstItem="gU8-zY-I7h" firstAttribute="centerX" secondItem="m5Q-Tw-Bdv" secondAttribute="centerX" id="PYC-Tr-haj"/>
                                                 <constraint firstAttribute="bottom" secondItem="QW7-VI-xOw" secondAttribute="bottom" id="ZpR-1q-W7v"/>
+                                                <constraint firstItem="gU8-zY-I7h" firstAttribute="top" secondItem="m5Q-Tw-Bdv" secondAttribute="topMargin" constant="30" id="efe-oM-A7v"/>
                                                 <constraint firstItem="QW7-VI-xOw" firstAttribute="top" secondItem="m5Q-Tw-Bdv" secondAttribute="top" constant="20" id="jr4-JM-P1M"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="activityLoadingCell" destination="gU8-zY-I7h" id="GUz-FC-2Mu"/>
                                             <outlet property="buttonFavorite" destination="OEv-2Q-vY9" id="aMY-kH-Vkx"/>
                                             <outlet property="collectionTopClips" destination="NUn-3O-zer" id="Qdm-jm-rwi"/>
                                             <outlet property="imageViewGame" destination="Xfn-6j-enH" id="uhV-RH-g4c"/>
                                             <outlet property="labelGameName" destination="6hs-EY-g38" id="K6H-aK-wMq"/>
                                             <outlet property="labelGamePopularityValue" destination="6gs-rc-czx" id="8r7-uw-X6m"/>
+                                            <outlet property="stackViewCell" destination="QW7-VI-xOw" id="jO1-PO-eee"/>
                                             <segue destination="MHm-70-zsB" kind="show" id="NN3-cv-fd1"/>
                                         </connections>
                                     </tableViewCell>
