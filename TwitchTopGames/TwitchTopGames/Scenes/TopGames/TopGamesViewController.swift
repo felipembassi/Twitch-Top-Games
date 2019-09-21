@@ -29,7 +29,7 @@ class TopGameCell: BaseTableViewCell<TopGames.Get.ViewModel.DisplayedGame> {
                 //TODO: verify inside core data before showing button type and image
                 self.buttonFavorite.isEnabled = false
                 
-                //TODO: get top 10 clips for this gamecell
+                //TODO: get top 5 clips for this gamecell and show inside a collection
             }else {
                 self.stackViewCell.isHidden = true
                 self.activityLoadingCell.startAnimating()
@@ -111,6 +111,9 @@ class TopGamesViewController: UIViewController, TopGamesDisplayLogic {
         self.getTopGames()
     }
     
+    // MARK:- UI
+    private let searchController = UISearchController(searchResultsController: nil)
+    
     // MARK: Proprieties
     private var genericDataSource: GenericTableViewDataSource<TopGameCell, TopGames.Get.ViewModel.DisplayedGame>?
     private let gamesLimit: Int = 25
@@ -126,21 +129,35 @@ class TopGamesViewController: UIViewController, TopGamesDisplayLogic {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.visibleViewController?.title = K.ViewControllers.TopGames.title
         
+        self.setupNavigationBar()
+        self.setupSearchBar()
         self.configPullToRefresh()
         self.getTopGames()
     }
     
     // MARK: Functions
     
-    func configPullToRefresh() {
+    private func setupNavigationBar() {
+        self.navigationController?.visibleViewController?.title = K.ViewControllers.TopGames.title
+    }
+    
+    private func setupSearchBar() {
+        self.navigationController?.visibleViewController?.navigationItem.hidesSearchBarWhenScrolling = true
+        searchController.obscuresBackgroundDuringPresentation = false
+        self.navigationController?.visibleViewController?.navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+    }
+    
+    
+    
+    private func configPullToRefresh() {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControl)
     }
     
-    func getTopGames() {
+    private func getTopGames() {
         DispatchQueue.global(qos: .background).async {
             guard !self.isFetchInProgress else {
                 return
@@ -193,5 +210,12 @@ class TopGamesViewController: UIViewController, TopGamesDisplayLogic {
 extension TopGamesViewController: GenericTableViewDataSourcePrefetchingDelegate {
     func fetchNewData() {
         self.getTopGames()
+    }
+}
+
+extension TopGamesViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.genericDataSource?.search(query: searchText)
+        self.tableView.reloadData()
     }
 }
