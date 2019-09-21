@@ -275,13 +275,28 @@ extension UITableView {
         placeholderView.placeHolderDescription.text = K.Alerts.Message.emptyTableMessage
         self.separatorStyle = .none
         self.backgroundView = placeholderView
+        Placeholder.isVisible = true
         self.reloadData()
     }
     
     func removePlaceholder(seperatorBackToDefault: Bool) {
         self.backgroundView = nil
+        Placeholder.isVisible = false
         if seperatorBackToDefault {
             self.separatorStyle = .singleLine
+        }
+    }
+    
+    struct Placeholder {
+        static var isVisible: Bool = false
+    }
+    
+    var isPlaceholderVisible: Bool {
+        get {
+            return Placeholder.isVisible
+        }
+        set(newValue) {
+            Placeholder.isVisible = newValue
         }
     }
 }

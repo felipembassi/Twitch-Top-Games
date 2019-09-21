@@ -34,7 +34,10 @@
 		E469EB0E231D5B8900EF328A /* TwitchTopGames.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E469EB0C231D5B8900EF328A /* TwitchTopGames.xcdatamodeld */; };
 		E469EB10231D5B8C00EF328A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E469EB0F231D5B8C00EF328A /* Assets.xcassets */; };
 		E469EB13231D5B8C00EF328A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E469EB11231D5B8C00EF328A /* LaunchScreen.storyboard */; };
-		E469EB1E231D5B8C00EF328A /* TwitchTopGamesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E469EB1D231D5B8C00EF328A /* TwitchTopGamesTests.swift */; };
+		E4C4379F23354C61002CB32C /* TopGamesViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C4379B23354C61002CB32C /* TopGamesViewControllerTests.swift */; };
+		E4C437A023354C61002CB32C /* TopGamesInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C4379C23354C61002CB32C /* TopGamesInteractorTests.swift */; };
+		E4C437A123354C61002CB32C /* TopGamesWorkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C4379D23354C61002CB32C /* TopGamesWorkerTests.swift */; };
+		E4C437A223354C61002CB32C /* TopGamesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C4379E23354C61002CB32C /* TopGamesPresenterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,8 +81,11 @@
 		E469EB12231D5B8C00EF328A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E469EB14231D5B8C00EF328A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E469EB19231D5B8C00EF328A /* TwitchTopGamesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitchTopGamesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E469EB1D231D5B8C00EF328A /* TwitchTopGamesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitchTopGamesTests.swift; sourceTree = "<group>"; };
 		E469EB1F231D5B8C00EF328A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4C4379B23354C61002CB32C /* TopGamesViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopGamesViewControllerTests.swift; sourceTree = "<group>"; };
+		E4C4379C23354C61002CB32C /* TopGamesInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopGamesInteractorTests.swift; sourceTree = "<group>"; };
+		E4C4379D23354C61002CB32C /* TopGamesWorkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopGamesWorkerTests.swift; sourceTree = "<group>"; };
+		E4C4379E23354C61002CB32C /* TopGamesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopGamesPresenterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,8 +241,11 @@
 		E469EB1C231D5B8C00EF328A /* TwitchTopGamesTests */ = {
 			isa = PBXGroup;
 			children = (
-				E469EB1D231D5B8C00EF328A /* TwitchTopGamesTests.swift */,
 				E469EB1F231D5B8C00EF328A /* Info.plist */,
+				E4C4379B23354C61002CB32C /* TopGamesViewControllerTests.swift */,
+				E4C4379C23354C61002CB32C /* TopGamesInteractorTests.swift */,
+				E4C4379D23354C61002CB32C /* TopGamesWorkerTests.swift */,
+				E4C4379E23354C61002CB32C /* TopGamesPresenterTests.swift */,
 			);
 			path = TwitchTopGamesTests;
 			sourceTree = "<group>";
@@ -382,7 +391,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E469EB1E231D5B8C00EF328A /* TwitchTopGamesTests.swift in Sources */,
+				E4C4379F23354C61002CB32C /* TopGamesViewControllerTests.swift in Sources */,
+				E4C437A223354C61002CB32C /* TopGamesPresenterTests.swift in Sources */,
+				E4C437A123354C61002CB32C /* TopGamesWorkerTests.swift in Sources */,
+				E4C437A023354C61002CB32C /* TopGamesInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

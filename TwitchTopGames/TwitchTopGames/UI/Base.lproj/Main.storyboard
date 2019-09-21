@@ -29,7 +29,7 @@
         <!--Top Games-->
         <scene sceneID="PI1-Jc-KKS">
             <objects>
-                <viewController id="1tM-W4-L5V" customClass="TopGamesViewController" customModule="TwitchTopGames" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TopGamesViewController" id="1tM-W4-L5V" customClass="TopGamesViewController" customModule="TwitchTopGames" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hHv-YE-F9p">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -184,10 +184,10 @@
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tni-xk-7uf">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="170" height="96"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                                                                 <subviews>
                                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topClipImageMock" translatesAutoresizingMaskIntoConstraints="NO" id="b9a-1F-7jJ">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="170" height="96"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                                                                                     </imageView>
                                                                                 </subviews>
                                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
