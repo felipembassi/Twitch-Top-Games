@@ -241,11 +241,8 @@
 		E469EB1C231D5B8C00EF328A /* TwitchTopGamesTests */ = {
 			isa = PBXGroup;
 			children = (
+				E4E4531D2339492400E76893 /* Scenes */,
 				E469EB1F231D5B8C00EF328A /* Info.plist */,
-				E4C4379B23354C61002CB32C /* TopGamesViewControllerTests.swift */,
-				E4C4379C23354C61002CB32C /* TopGamesInteractorTests.swift */,
-				E4C4379D23354C61002CB32C /* TopGamesWorkerTests.swift */,
-				E4C4379E23354C61002CB32C /* TopGamesPresenterTests.swift */,
 			);
 			path = TwitchTopGamesTests;
 			sourceTree = "<group>";
@@ -257,6 +254,25 @@
 				E469EB09231D5B8900EF328A /* Main.storyboard */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		E4E4531D2339492400E76893 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				E4E4531E2339493400E76893 /* TopGames */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		E4E4531E2339493400E76893 /* TopGames */ = {
+			isa = PBXGroup;
+			children = (
+				E4C4379B23354C61002CB32C /* TopGamesViewControllerTests.swift */,
+				E4C4379C23354C61002CB32C /* TopGamesInteractorTests.swift */,
+				E4C4379D23354C61002CB32C /* TopGamesWorkerTests.swift */,
+				E4C4379E23354C61002CB32C /* TopGamesPresenterTests.swift */,
+			);
+			path = TopGames;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

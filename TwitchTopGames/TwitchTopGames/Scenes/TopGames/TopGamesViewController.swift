@@ -149,8 +149,6 @@ class TopGamesViewController: UIViewController, TopGamesDisplayLogic {
         searchController.searchBar.delegate = self
     }
     
-    
-    
     private func configPullToRefresh() {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
@@ -189,21 +187,19 @@ class TopGamesViewController: UIViewController, TopGamesDisplayLogic {
     func displayTopGames(viewModel: TopGames.Get.ViewModel?) {
         self.isFetchInProgress = false
         self.totalPages = viewModel?.totalPages
-        DispatchQueue.main.async {
-            self.refreshControl.endRefresh(completion: {
-                if let viewModel = viewModel {
-                    self.currentPage += self.gamesLimit
-                    self.tableView.removePlaceholder(seperatorBackToDefault: true)
-                    self.setupDataSource(with: viewModel.displayedGames, andTotal: viewModel.totalPages)
-                }else {
-                    if self.genericDataSource == nil {
-                        self.tableView?.dataSource = nil
-                        self.tableView.showPlaceholder()
-                        self.showToast()
-                    }
+        self.refreshControl.endRefresh(completion: {
+            if let viewModel = viewModel {
+                self.currentPage += self.gamesLimit
+                self.tableView.removePlaceholder(seperatorBackToDefault: true)
+                self.setupDataSource(with: viewModel.displayedGames, andTotal: viewModel.totalPages)
+            }else {
+                if self.genericDataSource == nil {
+                    self.tableView?.dataSource = nil
+                    self.tableView.showPlaceholder()
+                    self.showToast()
                 }
-            })
-        }
+            }
+        })
     }
 }
 

@@ -56,18 +56,6 @@ class TopGamesViewControllerTests: XCTestCase {
     
     // MARK: Tests
     
-    func testShouldGetTopGamesWhenViewIsLoaded() {
-        // Given
-        let spy = TopGamesBusinessLogicSpy()
-        sut.interactor = spy
-        
-        // When
-        loadView()
-        
-        // Then
-        XCTAssertTrue(spy.getTopGamesCalled, "viewDidLoad() should ask the interactor to do getTopGames")
-    }
-    
     func testDisplayTopGamesWithNilViewModel() {
         // Given
         let viewModel: TopGames.Get.ViewModel? = nil
@@ -78,5 +66,20 @@ class TopGamesViewControllerTests: XCTestCase {
         
         // Then
         XCTAssertEqual(sut.tableView?.dataSource == nil, true, "displayTopGames(viewModel:nil) should display table view placeholder")
+    }
+    
+    func testDisplayTopGamesWithValidViewModelShouldInitializeTableViewDataSource() {
+        // Given
+        let gameUrl = URL(string: "https://static-cdn.jtvnw.net/ttv-boxart/Grand%20Theft%20Auto%20V-272x380.jpg")
+        let games =
+            [TopGames.Get.ViewModel.DisplayedGame(gameName: "Game 01", popularity: 1000, localizedName: "Game 01", gameImageUrl: gameUrl!)]
+        let viewModel = TopGames.Get.ViewModel(totalPages: 1, displayedGames: games)
+        
+        // When
+        loadView()
+        sut.displayTopGames(viewModel: viewModel)
+        
+        // Then
+        XCTAssertEqual(sut.tableView?.dataSource != nil, true, "displayTopGames(viewModel:nil) should display table view placeholder")
     }
 }
