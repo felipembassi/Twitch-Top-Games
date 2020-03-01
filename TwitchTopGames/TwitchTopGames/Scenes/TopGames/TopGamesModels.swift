@@ -164,7 +164,7 @@ enum TopGames {
         struct ViewModel {
             struct DisplayedGame: Searchable {
                 let gameName: String
-                let popularity: Int
+                let popularity: Int?
                 let localizedName: String
                 let gameImageUrl: URL
                 

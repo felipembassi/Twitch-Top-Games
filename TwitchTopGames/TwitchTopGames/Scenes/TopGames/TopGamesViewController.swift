@@ -24,7 +24,7 @@ class TopGameCell: BaseTableViewCell<TopGames.Get.ViewModel.DisplayedGame> {
 
                 }
                 self.labelGameName.text = item.localizedName
-                self.labelGamePopularityValue.text = "\(item.popularity.formattedWithSeparator)"
+                self.labelGamePopularityValue.text = "\(item.popularity?.formattedWithSeparator ?? "")"
                 
                 //TODO: verify inside core data before showing button type and image
                 self.buttonFavorite.isEnabled = false
