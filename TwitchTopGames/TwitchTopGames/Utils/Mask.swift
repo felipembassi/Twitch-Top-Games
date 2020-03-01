@@ -43,7 +43,7 @@ class Mask {
     }
     func maskMoney(_ value: Double) -> String {
         let valueString = String(value)
-        var valueArr = valueString.split {$0 == "."}.map(String.init)
+        let valueArr = valueString.split {$0 == "."}.map(String.init)
         let decimal = valueArr[1].count == 1 ? "\(valueArr[1])0" :  (valueArr[1])
         return "R$ \(valueArr[0]).\(decimal)"
     }
